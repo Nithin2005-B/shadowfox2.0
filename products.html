@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLV Shop - Products</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body >
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">SLV Shop</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html" class="cart-link">Cart</a></li>
+        <li><a href="order-history.html">Orders</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </nav>
+  </header>
+
+  <!-- Controls -->
+  <section class="controls">
+    <div class="filter">
+      <label>Category:</label>
+      <select id="filterCategory">
+        <option value="all">All</option>
+        <option value="clothing">Clothing</option>
+        <option value="electronics">Electronics</option>
+        <option value="accessories">Accessories</option>
+      </select>
+    </div>
+
+    <div class="sort">
+      <label>Sort by:</label>
+      <select id="sortPrice">
+        <option value="default">Default</option>
+        <option value="low-high">Price: Low to High</option>
+        <option value="high-low">Price: High to Low</option>
+      </select>
+    </div>
+
+    <div class="search">
+      <input type="text" id="searchInput" placeholder="Search products...">
+    </div>
+  </section>
+
+  <!-- Product Grid --><!-- Product Grid -->
+<section class="products-section">
+  <div class="section-header">
+    <h2>✨ Our Featured Products</h2>
+    <p>Hand-picked items just for you</p>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 SLV Shop. All rights reserved.</p>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>

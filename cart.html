@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SLV Shop - Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body >
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">SLV Shop</div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html" class="cart-link">Cart</a></li>
+        <li><a href="order-history.html">Orders</a></li>
+      </ul>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </nav>
+  </header>
+
+  <!-- Cart Section -->
+  <section class="cart-container">
+     <h2>🛒 Your Shopping Cart</h2>
+    <div id="cartItems"></div>
+    <div class="cart-total">
+      <h3>Total: ₹<span id="cartTotal">0</span></h3>
+      <a href="checkout.html" class="btn">Proceed to Checkout</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 SLV Shop. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  
+</body>
+</html>

@@ -2,7 +2,6 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const path = require("path");
-
 const app = express();
 const PORT = 5000;
 const DATA_FILE = path.join(__dirname, "orders.json");
@@ -32,14 +31,14 @@ app.get("/orders", (req, res) => res.json(readOrders()));
 
 // Add new order
 app.post("/orders", (req, res) => {
-  const { name, address, payment, items, total } = req.body;
+  const { id, name, address, payment, items, total } = req.body;
   if (!name || !address || !payment || !items || items.length === 0) {
     return res.status(400).json({ success: false, message: "Invalid order data" });
   }
 
   const orders = readOrders();
   const newOrder = {
-    id: Date.now(),
+    id: id || Date.now(),   // ✅ Use frontend id if provided
     name,
     address,
     payment,

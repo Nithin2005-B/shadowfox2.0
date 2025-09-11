@@ -175,6 +175,7 @@ if (filterCategory) filterCategory.addEventListener("change", applyFilters);
 if (sortPrice) sortPrice.addEventListener("change", applyFilters);
 if (searchInput) searchInput.addEventListener("input", applyFilters);
 
+
 // ===== Checkout =====
 const checkoutForm = document.getElementById("checkoutForm");
 if (checkoutForm) {
@@ -195,19 +196,17 @@ if (checkoutForm) {
       return;
     }
 
-    const orders = JSON.parse(localStorage.getItem("orders")) || [];
     const newOrder = {
-  id: Date.now(),  // unique order ID
-  name,
-  address,
-  payment,
-  items: cart,
-  total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
-  date: new Date().toLocaleString()
-};
-
-
-    try {
+      id: Date.now(),
+      name,
+      address,
+      payment,
+      items: cart,
+      total: cart.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      date: new Date().toLocaleString()
+    };
+try {
+  // Send to backend
   const response = await fetch("http://localhost:5000/orders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -216,31 +215,36 @@ if (checkoutForm) {
 
   const data = await response.json();
 
-   if (data.success) {
-      alert("✅ Order placed successfully (saved on backend)!");
-    } else {
-      throw new Error("Backend rejected order");
-    }
-  } catch (err) {
-    console.warn("⚠ Backend not available, saving order locally.", err);
+  if (data.success) {
+    alert("✅ Order placed successfully (saved on backend)!");
 
-    // Save in localStorage as fallback
+    // 🔑 Save backend’s version (correct ID)
     const orders = JSON.parse(localStorage.getItem("orders")) || [];
-    orders.push(newOrder);
+    orders.push(data.order); // ✅ Use backend order object
     localStorage.setItem("orders", JSON.stringify(orders));
-
-    alert("✅ Order placed successfully (saved locally)!");
+  } else {
+    throw new Error("Backend rejected order");
   }
-   
-     cart = [];
-    saveCart();
-    updateCartBadge();
+} catch (err) {
+  console.warn("⚠ Backend not available, saving order locally.", err);
+  alert("✅ Order placed successfully (saved locally)!");
 
-    // Redirect to order history page
-    window.location.href = "order-history.html";
-  
-  });
+  // 🔑 Save frontend’s version only if backend failed
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  orders.push(newOrder);
+  localStorage.setItem("orders", JSON.stringify(orders));
 }
+
+// Clear cart
+cart = [];
+saveCart();
+updateCartBadge();
+
+// Redirect
+window.location.href = "order-history.html";
+});
+}
+
 
 // ===== Order History =====
 function renderOrders() {
